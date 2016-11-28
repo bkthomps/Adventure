@@ -1,11 +1,11 @@
 /**
- ***********************************************************************************************************************************
+ ***********************************************************************************************************************
  * Bailey Thompson
- * Adventure (1.3)
- * 11 November 2016
+ * Adventure (1.3.1)
+ * 27 November 2016
  * Downloads: Requires jaco mp3 player
  * Info: RPG Game! Made during a hackathon.
- ***********************************************************************************************************************************
+ ***********************************************************************************************************************
  */
 //declaring package
 package adventure;
@@ -279,7 +279,8 @@ public class Adventure {
         west.setEnabled(false);
         east.setEnabled(false);
         encounter = ((int) (Math.random() * ((11 - 0) + 1))) + 0;
-        while ((item != 0 && (encounter == 8 || encounter == 10)) || (weapon != 0 && (encounter == 9 || encounter == 11))) {
+        while ((item != 0 && (encounter == 8 || encounter == 10))
+                || (weapon != 0 && (encounter == 9 || encounter == 11))) {
             encounter = ((int) (Math.random() * ((11 - 0) + 1))) + 0;
         }
         if (encounter == 10 || encounter == 11) {
