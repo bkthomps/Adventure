@@ -1,8 +1,8 @@
 /**
  ***********************************************************************************************************************
  * Bailey Thompson
- * Adventure (1.3.1)
- * 27 November 2016
+ * Adventure (1.3.2)
+ * 2 December 2016
  * Downloads: Requires jaco mp3 player
  * Info: RPG Game! Made during a hackathon.
  ***********************************************************************************************************************
@@ -123,7 +123,7 @@ public class Adventure {
     private void buttonPress() {
         //if user presses button north
         north.addActionListener((ActionEvent e) -> {
-            if (newRound == true) {
+            if (newRound) {
                 randomGenerate();
                 updateGUI();
             }
@@ -131,7 +131,7 @@ public class Adventure {
 
         //if user presses button south
         south.addActionListener((ActionEvent e) -> {
-            if (newRound == true) {
+            if (newRound) {
                 randomGenerate();
                 updateGUI();
             }
@@ -139,7 +139,7 @@ public class Adventure {
 
         //if user presses button west
         west.addActionListener((ActionEvent e) -> {
-            if (newRound == true) {
+            if (newRound) {
                 randomGenerate();
                 updateGUI();
             }
@@ -147,7 +147,7 @@ public class Adventure {
 
         //if user presses button east
         east.addActionListener((ActionEvent e) -> {
-            if (newRound == true) {
+            if (newRound) {
                 randomGenerate();
                 updateGUI();
             }
@@ -155,7 +155,7 @@ public class Adventure {
 
         //if user presses button weapon
         btnWeapon.addActionListener((ActionEvent e) -> {
-            if (newRound == false) {
+            if (!newRound) {
                 randomNum = ((int) (Math.random() * ((100 - 0) + 1))) + 0;
                 if (randomNum > (100 - (2 * weapon + 30))) {
                     //if user wins random test
@@ -185,7 +185,7 @@ public class Adventure {
 
         //if user presses button run
         run.addActionListener((ActionEvent e) -> {
-            if (newRound == false) {
+            if (!newRound) {
                 randomNum = ((int) (Math.random() * ((100 - 0) + 1))) + 0;
                 if (randomNum > 50) {
                     //if user wins random test
@@ -215,7 +215,7 @@ public class Adventure {
 
         //if user presses button item
         btnItem.addActionListener((ActionEvent e) -> {
-            if (newRound == false) {
+            if (!newRound) {
                 //determines outcome based on what item the user has
                 if (item > 0 && item < 6) {
                     if (encounter == 7) {
