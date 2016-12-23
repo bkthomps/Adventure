@@ -2,15 +2,13 @@
  ***********************************************************************************************************************
  * Bailey Thompson
  * Adventure (1.3.2)
- * 2 December 2016
+ * 22 December 2016
  * Downloads: Requires jaco mp3 player
  * Info: RPG Game! Made during a hackathon.
  ***********************************************************************************************************************
  */
-//declaring package
 package adventure;
 
-//declaring imports
 import jaco.mp3.player.MP3Player;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -22,40 +20,32 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-//declaring class
 public class Adventure {
 
-    //used for GUI
+    private static final ImageIcon ICONADVENTURE = new ImageIcon("Adventure.png");
     private final JFrame frame = new JFrame("Adventure");
-    ImageIcon iconAdventure = new ImageIcon("Adventure.png");
-    JLabel text1 = new JLabel("Welcome To Adventure! This Game Was Created By Bailey Thompson");
-    JLabel text2 = new JLabel("To Start The Game, Please Pick A Direction To Move In!");
-    JLabel infoA1 = new JLabel("  Health: 20");
-    JLabel infoA2 = new JLabel("  Level: 1");
-    JButton north = new JButton("North");
-    JLabel infoB1 = new JLabel("  Weapon: Fists");
-    JLabel infoB2 = new JLabel("  Item: Nothing");
-    JButton west = new JButton("West"), south = new JButton("South"), east = new JButton("East");
-    JButton btnWeapon = new JButton("Weapon"), run = new JButton("Run/Leave"), btnItem = new JButton("Item");
-    JPanel textPanel = new JPanel();
-    JPanel infoAPanel = new JPanel();
-    JPanel infoBPanel = new JPanel();
-    JPanel panelMid = new JPanel(), panelBot = new JPanel(), panelNeg = new JPanel();
+    private final JLabel text1 = new JLabel("Welcome To Adventure! This Game Was Created By Bailey Thompson");
+    private final JLabel text2 = new JLabel("To Start The Game, Please Pick A Direction To Move In!");
+    private final JLabel infoA1 = new JLabel("  Health: 20");
+    private final JLabel infoA2 = new JLabel("  Level: 1");
+    private final JButton north = new JButton("North");
+    private final JLabel infoB1 = new JLabel("  Weapon: Fists");
+    private final JLabel infoB2 = new JLabel("  Item: Nothing");
+    private final JButton west = new JButton("West"), south = new JButton("South"), east = new JButton("East");
+    private final JButton btnWeapon = new JButton("Weapon"), btnItem = new JButton("Item");
+    private final JButton run = new JButton("Run/Leave");
+    private final JPanel textPanel = new JPanel(), infoAPanel = new JPanel(), infoBPanel = new JPanel();
+    private final JPanel panelMid = new JPanel(), panelBot = new JPanel(), panelNeg = new JPanel();
+    private int xp, level = 1, currentHP = 20, weapon, item, lastMove, randomNum, encounter, half;
+    private boolean newRound = true;
 
-    //logic variables
-    int xp, level = 1, currentHP = 20, weapon, item, lastMove, randomNum, encounter, half;
-    boolean newRound = true;
-
-    //declaring main method
     public static void main(String[] args) {
-        //sending to method prepareGUI
         Adventure Adventure = new Adventure();
         Adventure.prepareGUI();
     }
 
-    //private void used to prepare gui
     private void prepareGUI() {
-        //playing the sound file n repeat
+        //playing the sound file on repeat
         MP3Player player = new MP3Player();
         player.addToPlayList(new File("Adventure.mp3"));
         player.setRepeat(true);
@@ -66,62 +56,51 @@ public class Adventure {
         frame.setResizable(false);
         frame.setSize(400, 400);
         frame.setLocationRelativeTo(null);
-        frame.setIconImage(iconAdventure.getImage());
+        frame.setIconImage(ICONADVENTURE.getImage());
         frame.setVisible(true);
         frame.getContentPane().setBackground(Color.gray);
 
-        //adding elements to the frame
         textPanel.add(text1);
         textPanel.add(text2);
         textPanel.setLayout(new GridLayout(2, 1));
 
-        //adding elements to the frame
         infoAPanel.add(infoA1);
         infoAPanel.add(infoA2);
         infoAPanel.setLayout(new GridLayout(2, 1));
 
-        //adding elements to the frame
         infoBPanel.add(infoB1);
         infoBPanel.add(infoB2);
         infoBPanel.setLayout(new GridLayout(2, 1));
 
-        //adding elements to the frame
         panelMid.add(infoAPanel);
         panelMid.add(north);
         panelMid.add(infoBPanel);
         panelMid.setLayout(new GridLayout(1, 3));
 
-        //adding elements to the frame
         panelBot.add(west);
         panelBot.add(south);
         panelBot.add(east);
         panelBot.setLayout(new GridLayout(1, 3));
 
-        //adding elements to the frame
         panelNeg.add(btnWeapon);
         panelNeg.add(run);
         panelNeg.add(btnItem);
         panelNeg.setLayout(new GridLayout(1, 3));
 
-        //adding elements to the frame
         frame.add(textPanel);
         frame.add(panelMid);
         frame.add(panelBot);
         frame.add(panelNeg);
         frame.setLayout(new GridLayout(4, 1, 0, 1));
 
-        //disabling buttons
         btnWeapon.setEnabled(false);
         run.setEnabled(false);
         btnItem.setEnabled(false);
 
-        //sending to method buttonPress
         buttonPress();
     }
 
-    //method used for button press logic
     private void buttonPress() {
-        //if user presses button north
         north.addActionListener((ActionEvent e) -> {
             if (newRound) {
                 randomGenerate();
@@ -129,7 +108,6 @@ public class Adventure {
             }
         });
 
-        //if user presses button south
         south.addActionListener((ActionEvent e) -> {
             if (newRound) {
                 randomGenerate();
@@ -137,7 +115,6 @@ public class Adventure {
             }
         });
 
-        //if user presses button west
         west.addActionListener((ActionEvent e) -> {
             if (newRound) {
                 randomGenerate();
@@ -145,7 +122,6 @@ public class Adventure {
             }
         });
 
-        //if user presses button east
         east.addActionListener((ActionEvent e) -> {
             if (newRound) {
                 randomGenerate();
@@ -153,7 +129,6 @@ public class Adventure {
             }
         });
 
-        //if user presses button weapon
         btnWeapon.addActionListener((ActionEvent e) -> {
             if (!newRound) {
                 randomNum = ((int) (Math.random() * ((100 - 0) + 1))) + 0;
@@ -167,7 +142,7 @@ public class Adventure {
                     south.setEnabled(true);
                     west.setEnabled(true);
                     east.setEnabled(true);
-                    xp += 1;
+                    xp++;
                     if (encounter == 5 || encounter == 6) {
                         text2.setText("You cross with your weapon! What direction do you choose now?");
                         weapon = 0;
@@ -183,7 +158,6 @@ public class Adventure {
             }
         });
 
-        //if user presses button run
         run.addActionListener((ActionEvent e) -> {
             if (!newRound) {
                 randomNum = ((int) (Math.random() * ((100 - 0) + 1))) + 0;
@@ -197,7 +171,7 @@ public class Adventure {
                     south.setEnabled(true);
                     west.setEnabled(true);
                     east.setEnabled(true);
-                    xp += 1;
+                    xp++;
                     if (encounter == 5 || encounter == 6) {
                         text2.setText("You ran, but you lost 3HP! What direction do you choose now?");
                         currentHP -= 3;
@@ -213,7 +187,6 @@ public class Adventure {
             }
         });
 
-        //if user presses button item
         btnItem.addActionListener((ActionEvent e) -> {
             if (!newRound) {
                 //determines outcome based on what item the user has
@@ -229,7 +202,7 @@ public class Adventure {
                         south.setEnabled(true);
                         west.setEnabled(true);
                         east.setEnabled(true);
-                        xp += 1;
+                        xp++;
                     } else {
                         text2.setText("You healed yourself. Choose another action.");
                         currentHP += 4 * item;
@@ -253,7 +226,7 @@ public class Adventure {
                         south.setEnabled(true);
                         west.setEnabled(true);
                         east.setEnabled(true);
-                        xp += 1;
+                        xp++;
                     } else {
                         text2.setText("It had no effect. Choose another action.");
                     }
@@ -264,16 +237,14 @@ public class Adventure {
         });
     }
 
-    //this method generates scenarios
     private void randomGenerate() {
-        //setting text to blank
         text2.setText("");
         newRound = false;
-        //enabling buttons
+
         btnWeapon.setEnabled(true);
         run.setEnabled(true);
         btnItem.setEnabled(true);
-        //disabling buttons
+
         north.setEnabled(false);
         south.setEnabled(false);
         west.setEnabled(false);
@@ -286,7 +257,6 @@ public class Adventure {
         if (encounter == 10 || encounter == 11) {
             encounter -= 2;
         }
-        //displaying scenario to user
         switch (encounter) {
             case 0:
                 text1.setText("You encounter a dragon. What do you do?");
@@ -333,10 +303,8 @@ public class Adventure {
         }
     }
 
-    //this method updates the gui
     private void updateGUI() {
         if (currentHP > 0) {
-            //updates which weapon the user is displayed as having
             switch (weapon) {
                 case 0:
                     infoB1.setText("  Weapon: Fists");
@@ -369,7 +337,6 @@ public class Adventure {
                     infoB1.setText("  Weapon: Crossbow");
                     break;
             }
-            //updates which item the user is displayed as having
             switch (item) {
                 case 0:
                     infoB2.setText("  Item: Nothing");
