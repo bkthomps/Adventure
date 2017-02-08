@@ -18,7 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-class Adventure {
+public class Adventure {
 
     private static final ImageIcon ICON_ADVENTURE = new ImageIcon("Adventure.png");
     private static final String SOUND_FILE = "Adventure.mp3";
