@@ -1,13 +1,10 @@
 /*
  * Bailey Thompson
- * Adventure (1.4.0)
- * 7 February 2017
- * Dependencies: jaco mp3 player
- * Info: RPG Game! Made during a hackathon.
+ * Adventure (1.4.1)
+ * 20 February 2017
  */
 
 import jaco.mp3.player.MP3Player;
-
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -18,10 +15,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * RPG game in which user plays an adventure. Dependant on the external library: jaco mp3 player.
+ */
 class Adventure {
 
     private static final ImageIcon ICON_ADVENTURE = new ImageIcon("Adventure.png");
     private static final String SOUND_FILE = "Adventure.mp3";
+
     private final JFrame frame = new JFrame("Adventure");
     private final JLabel text1 = new JLabel("Welcome To Adventure! This Game Was Created By Bailey Thompson");
     private final JLabel text2 = new JLabel("To Start The Game, Please Pick A Direction To Move In!");
@@ -35,7 +36,8 @@ class Adventure {
     private final JButton run = new JButton("Run/Leave");
     private final JPanel textPanel = new JPanel(), infoAPanel = new JPanel(), infoBPanel = new JPanel();
     private final JPanel panelMid = new JPanel(), panelBot = new JPanel(), panelNeg = new JPanel();
-    private int xp, level = 1, currentHP = 20, weapon, item, randomNum, encounter;
+
+    private int xp, level = 1, currentHP = 20, weapon, item, encounter;
     private boolean newRound = true;
 
     public static void main(String[] args) {
@@ -46,10 +48,10 @@ class Adventure {
     private void prepareGUI() {
         final File SOUND_HANDLE = new File(SOUND_FILE);
         if (SOUND_HANDLE.exists()) {
-            MP3Player player = new MP3Player();
-            player.addToPlayList(SOUND_HANDLE);
-            player.setRepeat(true);
-            player.play();
+            final MP3Player PLAYER = new MP3Player();
+            PLAYER.addToPlayList(SOUND_HANDLE);
+            PLAYER.setRepeat(true);
+            PLAYER.play();
         }
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -131,9 +133,8 @@ class Adventure {
 
         btnWeapon.addActionListener((ActionEvent e) -> {
             if (!newRound) {
-                randomNum = generateNumber(100);
-                if (randomNum > (100 - (2 * weapon + 30))) {
-                    //if user wins random test
+                final int RANDOM_NUMBER = generateNumber(100);
+                if (RANDOM_NUMBER > (100 - (2 * weapon + 30))) {
                     newRound = true;
                     btnWeapon.setEnabled(false);
                     run.setEnabled(false);
@@ -150,7 +151,6 @@ class Adventure {
                         text2.setText("You killed it! What direction do you choose now?");
                     }
                 } else {
-                    //if user loses random test
                     text2.setText("You failed, due to exhaustion you lost 2HP. Choose another action.");
                     currentHP -= 2;
                 }
@@ -160,9 +160,8 @@ class Adventure {
 
         run.addActionListener((ActionEvent e) -> {
             if (!newRound) {
-                randomNum = generateNumber(100);
-                if (randomNum > 50) {
-                    //if user wins random test
+                final int RANDOM_NUMBER = generateNumber(100);
+                if (RANDOM_NUMBER > 50) {
                     newRound = true;
                     btnWeapon.setEnabled(false);
                     run.setEnabled(false);
@@ -179,7 +178,6 @@ class Adventure {
                         text2.setText("You were able to run away. What direction do you choose now?");
                     }
                 } else {
-                    //if user loses random test
                     text2.setText("You are too tired to run, and lost 2HP. Choose another action.");
                     currentHP -= 2;
                 }
@@ -189,7 +187,6 @@ class Adventure {
 
         btnItem.addActionListener((ActionEvent e) -> {
             if (!newRound) {
-                //determines outcome based on what item the user has
                 if (item > 0 && item < 6) {
                     if (encounter == 7) {
                         text2.setText("She stole your weapon! What direction do you choose now?");
